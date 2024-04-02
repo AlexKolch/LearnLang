@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LinksView: View {
+    @ObservedObject var linksViewModel: LinksViewModel
+    
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
             
@@ -19,7 +21,7 @@ struct LinksView: View {
             }.frame(maxWidth: .infinity, alignment: .leading)
             
             Button(action: {
-                //
+                linksViewModel.isShowAddLink.toggle()
             }, label: {
                 ZStack {
                     Circle().frame(width: 56, height: 56).foregroundStyle(.main)

@@ -14,6 +14,10 @@
 		FC71EC462BBB389100C01C0E /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC71EC452BBB389100C01C0E /* ListView.swift */; };
 		FC71EC482BBBE41F00C01C0E /* RandomWorldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC71EC472BBBE41F00C01C0E /* RandomWorldView.swift */; };
 		FC71EC4A2BBBFB7600C01C0E /* LinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC71EC492BBBFB7600C01C0E /* LinksView.swift */; };
+		FC71EC4C2BBC087E00C01C0E /* AddNewWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC71EC4B2BBC087E00C01C0E /* AddNewWordView.swift */; };
+		FC71EC4E2BBC78DB00C01C0E /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC71EC4D2BBC78DB00C01C0E /* ListViewModel.swift */; };
+		FC71EC502BBC813E00C01C0E /* AddLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC71EC4F2BBC813E00C01C0E /* AddLinkView.swift */; };
+		FC71EC522BBC829200C01C0E /* LinksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC71EC512BBC829200C01C0E /* LinksViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +29,10 @@
 		FC71EC452BBB389100C01C0E /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		FC71EC472BBBE41F00C01C0E /* RandomWorldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomWorldView.swift; sourceTree = "<group>"; };
 		FC71EC492BBBFB7600C01C0E /* LinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinksView.swift; sourceTree = "<group>"; };
+		FC71EC4B2BBC087E00C01C0E /* AddNewWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewWordView.swift; sourceTree = "<group>"; };
+		FC71EC4D2BBC78DB00C01C0E /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		FC71EC4F2BBC813E00C01C0E /* AddLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLinkView.swift; sourceTree = "<group>"; };
+		FC71EC512BBC829200C01C0E /* LinksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinksViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +95,8 @@
 		FC71EC422BBB344E00C01C0E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				FC71EC4D2BBC78DB00C01C0E /* ListViewModel.swift */,
+				FC71EC512BBC829200C01C0E /* LinksViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -104,6 +114,8 @@
 				FC71EC452BBB389100C01C0E /* ListView.swift */,
 				FC71EC472BBBE41F00C01C0E /* RandomWorldView.swift */,
 				FC71EC492BBBFB7600C01C0E /* LinksView.swift */,
+				FC71EC4B2BBC087E00C01C0E /* AddNewWordView.swift */,
+				FC71EC4F2BBC813E00C01C0E /* AddLinkView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -178,10 +190,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC71EC4C2BBC087E00C01C0E /* AddNewWordView.swift in Sources */,
+				FC71EC522BBC829200C01C0E /* LinksViewModel.swift in Sources */,
 				FC71EC482BBBE41F00C01C0E /* RandomWorldView.swift in Sources */,
+				FC71EC4E2BBC78DB00C01C0E /* ListViewModel.swift in Sources */,
 				FC71EC362BBB33AC00C01C0E /* ContentView.swift in Sources */,
 				FC71EC4A2BBBFB7600C01C0E /* LinksView.swift in Sources */,
 				FC71EC342BBB33AC00C01C0E /* LearnLangApp.swift in Sources */,
+				FC71EC502BBC813E00C01C0E /* AddLinkView.swift in Sources */,
 				FC71EC462BBB389100C01C0E /* ListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

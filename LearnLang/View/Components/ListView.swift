@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ListView: View {
     @State var searchText: String = ""
+    @ObservedObject var listViewModel: ListViewModel
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
@@ -36,7 +37,7 @@ struct ListView: View {
                 }
             }
             Button(action: {
-                //
+                listViewModel.isShowAddView.toggle()
             }, label: {
                 ZStack {
                     Circle().frame(width: 56, height: 56).foregroundStyle(.main)
