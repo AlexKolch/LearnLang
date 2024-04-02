@@ -8,15 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var selected = 2
     var body: some View {
-        TabView {
+        TabView(selection: .constant(2)) {
             ListView().tag(1)
                 .padding(.horizontal, 15)
                 .tabItem {
                     Image(systemName: "list.dash")
                     Text("List")
                 }
-            Text("Words").tag(2)
+            RandomWorldView().tag(2)
+                .padding(.horizontal, 15)
                 .tabItem {
                     Image(systemName: "textformat.abc")
                     Text("Words")
