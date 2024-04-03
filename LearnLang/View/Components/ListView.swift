@@ -33,11 +33,10 @@ struct ListView: View {
                     VStack(spacing: 20.0) {
                         //Cards
                         ForEach(wordItems, id: \.id) { item in
-                            CardItemsView {
-                                //здесь будет функц удаления карточки из БД
+                            CardItemsView(cardItems: item) {
+                                $wordItems.remove(item) //Удаление из Realm
                             }
                         }
-                       
                     }
                 }
                 .padding(.horizontal, 15)
@@ -57,10 +56,12 @@ struct ListView: View {
             .offset(x: -20, y: -30)
         }
     }
+    
 }
 
 struct CardItemsView: View {
     @State var offsetX: CGFloat = 0
+    var cardItems: WordItem
     let onDelete: () -> ()
     
     var body: some View {
@@ -70,11 +71,13 @@ struct CardItemsView: View {
                 VStack(alignment: .leading, spacing: 0.0) { //1
                     Text("TR").font(.system(size: 12, weight: .black))
                         .padding(.bottom, 5)
-                    Text("Araba").font(.system(size: 18, weight: .black))
+                    Text(cardItems.nativWord)
+                        .font(.system(size: 18, weight: .black))
                     
                     Rectangle().frame(height: 2).opacity(0.0) //прозрачное вью
                     
-                    Text("Машина").font(.system(size: 16, weight: .light))
+                    Text(cardItems.translateWord)
+                        .font(.system(size: 16, weight: .light))
                 }
                 
                 Divider()
@@ -83,7 +86,7 @@ struct CardItemsView: View {
                     Text ("Примечание").font(.system(size: 12, weight: .black))
                         .foregroundStyle(.secondary)
                         .padding(.bottom, 2)
-                    Text ("Lorem ipsum, dolor sit amet, consectetur adipisicing elit. Quia vel a eveniet explicabo")
+                    Text (cardItems.descriptionWord)
                 }
             }.frame(maxWidth: .infinity)
                 .padding(20)

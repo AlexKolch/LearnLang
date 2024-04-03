@@ -9,4 +9,5 @@ import Foundation
 
 final class ListViewModel: ObservableObject {
     @Published var isShowAddView = false
+    var cardItems: WordItem = WordItem()
 }
