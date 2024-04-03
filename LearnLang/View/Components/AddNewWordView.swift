@@ -6,11 +6,14 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct AddNewWordView: View {
     @State private var newWord = ""
     @State private var wordTranslate = ""
     @State private var wordDesription = ""
+    @State private var showAlert = false
+    @ObservedResults(WordItem.self) var wordItems
     @ObservedObject var listViewModel: ListViewModel
     
     var body: some View {
@@ -21,6 +24,7 @@ struct AddNewWordView: View {
                     .font(.system(size: 20, weight: .black))
                     .padding(.leading, 16)
                 Spacer()
+                    //Выход
                 Button(action: {
                     listViewModel.isShowAddView.toggle()
                 }, label: {
@@ -52,17 +56,35 @@ struct AddNewWordView: View {
                     .padding(.top, 13)
                     .padding(.leading, 23)
                 
-                Rectangle()
-                    .opacity(0)
-                    .frame(height: 90)
-                    .padding(.vertical, 13)
-                    .padding(.horizontal, 23)
-                    .background(Color("Gray"))
-                    .cornerRadius(10)
+                HStack {
+                    TextEditor(text: $wordDesription)
+                        .frame(height: 90)
+                        .colorMultiply(Color("Gray"))
+                        .autocorrectionDisabled()
+                }
+                .padding(.vertical, 13)
+                .padding(.horizontal, 23)
+                .background(Color("Gray"))
+                .cornerRadius(10)
             }
+            
             Spacer()
+            //SAVE Button
             Button(action: {
-                //
+                if newWord.count == 0, wordTranslate.count == 0 {
+                    showAlert.toggle()
+                } else {
+                    let word = WordItem() //создаем объект модели и записываем в него данные
+                    word.nativWord = newWord
+                    word.translateWord = wordTranslate
+                    word.descriptionWord = wordDesription
+                    
+                    $wordItems.append(word) //Сохраняем в Realm
+                    
+                    withAnimation {
+                        listViewModel.isShowAddView.toggle() //Закрываем Вью
+                    }
+                }
             }, label: {
                 Text("Save")
                     .padding(.vertical, 13)
@@ -70,7 +92,7 @@ struct AddNewWordView: View {
                     .background(.main)
                     .foregroundStyle(.white)
                     .clipShape(Capsule())
-            })
+            }).alert(Text("Empty fields"), isPresented: $showAlert) {}
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(15)

@@ -40,7 +40,7 @@ struct ContentView: View {
                         Text("Links")
                     }
             }
-            
+            //Переходы на детальные экраны
             if listViewModel.isShowAddView {
                 AddNewWordView(listViewModel: listViewModel)
             }

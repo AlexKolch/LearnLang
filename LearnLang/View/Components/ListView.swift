@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct ListView: View {
     @State var searchText: String = ""
     @ObservedObject var listViewModel: ListViewModel
+    @ObservedResults(WordItem.self) var wordItems
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
@@ -30,13 +32,17 @@ struct ListView: View {
                     
                     VStack(spacing: 20.0) {
                         //Cards
-                        CardItemsView {
-                            //здесь будет функц удаления карточки из БД
+                        ForEach(wordItems, id: \.id) { item in
+                            CardItemsView {
+                                //здесь будет функц удаления карточки из БД
+                            }
                         }
+                       
                     }
                 }
                 .padding(.horizontal, 15)
             }
+            
             Button(action: {
                 listViewModel.isShowAddView.toggle()
             }, label: {
