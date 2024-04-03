@@ -30,11 +30,12 @@ struct ListView: View {
                     
                     VStack(spacing: 20.0) {
                         //Cards
-                        CardItemsView()
-                        CardItemsView()
-                        CardItemsView()
+                        CardItemsView {
+                            //здесь будет функц удаления карточки из БД
+                        }
                     }
                 }
+                .padding(.horizontal, 15)
             }
             Button(action: {
                 listViewModel.isShowAddView.toggle()
@@ -53,30 +54,65 @@ struct ListView: View {
 }
 
 struct CardItemsView: View {
+    @State var offsetX: CGFloat = 0
+    let onDelete: () -> ()
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 10.0) {
-            VStack(alignment: .leading, spacing: 0.0) { //1
-                Text("TR").font(.system(size: 12, weight: .black))
-                    .padding(.bottom, 5)
-                Text("Araba").font(.system(size: 18, weight: .black))
+        ZStack(alignment: .trailing) {
+            createRemoveImage()
+            VStack(alignment: .leading, spacing: 10.0) {
+                VStack(alignment: .leading, spacing: 0.0) { //1
+                    Text("TR").font(.system(size: 12, weight: .black))
+                        .padding(.bottom, 5)
+                    Text("Araba").font(.system(size: 18, weight: .black))
+                    
+                    Rectangle().frame(height: 2).opacity(0.0) //прозрачное вью
+                    
+                    Text("Машина").font(.system(size: 16, weight: .light))
+                }
                 
-                Rectangle().frame(height: 2).opacity(0.0) //прозрачное вью
+                Divider()
                 
-                Text("Машина").font(.system(size: 16, weight: .light))
-            }
-            
-            Divider()
-            
-            VStack(alignment: .leading) { //2
-                Text ("Примечание").font(.system(size: 12, weight: .black))
-                    .foregroundStyle(.secondary)
-                    .padding(.bottom, 2)
-                Text ("Lorem ipsum, dolor sit amet, consectetur adipisicing elit. Quia vel a eveniet explicabo")
-            }
-        }.frame(maxWidth: .infinity)
-            .padding(20)
-            .background(Color("Gray"))
-            .cornerRadius(10)
+                VStack(alignment: .leading) { //2
+                    Text ("Примечание").font(.system(size: 12, weight: .black))
+                        .foregroundStyle(.secondary)
+                        .padding(.bottom, 2)
+                    Text ("Lorem ipsum, dolor sit amet, consectetur adipisicing elit. Quia vel a eveniet explicabo")
+                }
+            }.frame(maxWidth: .infinity)
+                .padding(20)
+                .background(Color("Gray"))
+                .cornerRadius(10)
+                .offset(x: offsetX)
+                .gesture(DragGesture()
+                         
+                    .onChanged { value in
+                        if value.translation.width < 0 {
+                            offsetX = value.translation.width
+                        }
+                    }
+                         
+                    .onEnded { value in
+                        withAnimation {
+                            if Self.screenSize().width * 0.7 < -value.translation.width {
+                                offsetX = -Self.screenSize().width
+                                onDelete()
+                            }
+                            offsetX = 0
+                        }
+                    }
+            )
+        }
+    }
+    @ViewBuilder
+    func createRemoveImage() -> some View {
+        Image(systemName: "xmark")
+            .resizable()
+            .frame(width: 10, height: 10)
+            .offset(x: 30)
+            .offset(x: offsetX * 0.4)
+            .scaleEffect(CGSize(width: 0.1 * -offsetX * 0.08,
+                                height: 0.1 * -offsetX * 0.08))
     }
 }
 

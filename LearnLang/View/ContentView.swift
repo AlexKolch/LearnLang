@@ -8,15 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selected = 2
+    @State private var selected = 1
     @StateObject var listViewModel = ListViewModel()
     @StateObject var linksViewModel = LinksViewModel()
+    @Environment(\.colorScheme) var colorTheme
+    
+    init() {
+        UITabBar.appearance().shadowImage = UIImage()
+        UITabBar.appearance().backgroundImage = UIImage()
+        UITabBar.appearance().backgroundColor = colorTheme == .light ? UIColor.white : UIColor.black
+    }
     
     var body: some View {
         ZStack {
             TabView(selection: .constant(1)) {
                 ListView(listViewModel: listViewModel).tag(1)
-                    .padding(.horizontal, 15)
                     .tabItem {
                         Image(systemName: "list.dash")
                         Text("List")
