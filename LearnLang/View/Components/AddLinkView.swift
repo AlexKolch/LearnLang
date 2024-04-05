@@ -25,7 +25,6 @@ struct AddLinkView: View {
                     .padding(.leading, 16)
                 Spacer()
                 Button(action: {
-//                    linksViewModel.isShowAddLink.toggle()
                     dismiss()
                 }, label: {
                     Image(systemName: "xmark")

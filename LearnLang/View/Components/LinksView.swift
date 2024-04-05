@@ -15,20 +15,30 @@ struct LinksView: View {
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
             
-            ScrollView {
-                VStack(spacing: 10.0) {
-
-                    ForEach(linkItem) { link in
-                        LinkItems(linkData: link) {
-                            withAnimation {
-                                $linkItem.remove(link)
+            NavigationStack {
+                ScrollView {
+                    VStack(spacing: 10.0) {
+                        
+                        ForEach(linkItem) { link in
+                            NavigationLink {
+                                LinkOpenView(url: link.linkUrl)
+                            } label: {
+                                LinkItems(linkData: link) {
+                                    withAnimation {
+                                        $linkItem.remove(link)
+                                    }
+                                }
                             }
+                            .foregroundStyle(.black)
+                            .navigationTitle("Links")
+                            .navigationBarTitleDisplayMode(.large)
                         }
-                    }.environmentObject(linksViewModel)
+                    }
                 }
+                .padding(.horizontal, 15)
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding(.horizontal, 15)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            
             //Кнопка Рlus
             Button(action: {
                 linksViewModel.isShowAddLink.toggle()
@@ -51,10 +61,8 @@ struct LinksView: View {
 
 //MARK: - LinkItem
 struct LinkItems: View {
-//    @State var isShowContent = false
-//    @Binding var openUrl: String
+    
     let linkData: LinkItem
-    @EnvironmentObject var linksViewModel: LinksViewModel
     var onDelete: ()->()
     
     var body: some View {
@@ -77,14 +85,6 @@ struct LinkItems: View {
         .padding(20)
         .background(Color("Gray"))
         .cornerRadius(10)
-        .onTapGesture {
-            linksViewModel.isShowLinkContent.toggle()
-            linksViewModel.url = linkData.linkUrl
-        }
-        .fullScreenCover(isPresented: $linksViewModel.isShowLinkContent, content: {
-//            LinkOpenView(url: $openUrl)
-            LinkOpenView(url: linksViewModel.url)
-        })
     }
 }
 

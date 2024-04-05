@@ -43,12 +43,6 @@ struct ContentView: View {
             if listViewModel.isShowAddView {
                 AddNewWordView(listViewModel: listViewModel)
             }
-//            if linksViewModel.isShowAddLink {
-//                AddLinkView(linksViewModel: linksViewModel)
-//            }
-//            if linksViewModel.isShowLinkContent {
-//                LinkOpenView(url: $linksViewModel.url)
-//            }
         }
     }
 }

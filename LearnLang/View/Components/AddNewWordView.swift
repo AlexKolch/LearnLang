@@ -44,11 +44,13 @@ struct AddNewWordView: View {
                         .padding(.horizontal, 23)
                         .background(Color("Gray"))
                         .cornerRadius(10)
+                        .textInputAutocapitalization(.never)
                     TextField("Translate", text: $wordTranslate)
                         .padding(.vertical, 13)
                         .padding(.horizontal, 23)
                         .background(Color("Gray"))
                         .cornerRadius(10)
+                        .textInputAutocapitalization(.never)
                 }
                
                 Text("Description")
