@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct AddLinkView: View {
     @State private var linkTitle = ""
     @State private var link = ""
- 
+    @State private var isShowAlert = false
     @ObservedObject var linksViewModel: LinksViewModel
+    @Environment(\.dismiss) var dismiss
+    @ObservedResults(LinkItem.self) var linkItem
     
     var body: some View {
         VStack {
@@ -22,7 +25,8 @@ struct AddLinkView: View {
                     .padding(.leading, 16)
                 Spacer()
                 Button(action: {
-                    linksViewModel.isShowAddLink.toggle()
+//                    linksViewModel.isShowAddLink.toggle()
+                    dismiss()
                 }, label: {
                     Image(systemName: "xmark")
                         .resizable()
@@ -47,8 +51,21 @@ struct AddLinkView: View {
                 }
             }
             Spacer()
+            //Кнопка SAVE
             Button(action: {
-                //
+                if linkTitle.count > 0, link.count > 0 {
+                    let newLink = LinkItem()
+                    newLink.linkTitle = self.linkTitle
+                    newLink.linkUrl = self.link
+                    
+                    $linkItem.append(newLink)
+                    
+                    withAnimation {
+                        linksViewModel.isShowAddLink.toggle()
+                    }
+                } else {
+                    isShowAlert.toggle()
+                }
             }, label: {
                 Text("Save")
                     .padding(.vertical, 13)
@@ -56,7 +73,7 @@ struct AddLinkView: View {
                     .background(.main)
                     .foregroundStyle(.white)
                     .clipShape(Capsule())
-            })
+            }).alert(Text("Empty fields"), isPresented: $isShowAlert) {}
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(15)

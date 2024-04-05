@@ -6,20 +6,30 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct LinksView: View {
     @ObservedObject var linksViewModel: LinksViewModel
+    @ObservedResults(LinkItem.self) var linkItem
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
             
             ScrollView {
                 VStack(spacing: 10.0) {
-                    LinkItem(text: "Урок по грамматике языка")
-                    LinkItem(text: "Урок 3. Личные местоимения. Аффиксы сказуемости")
+
+                    ForEach(linkItem) { link in
+                        LinkItems(linkData: link) {
+                            withAnimation {
+                                $linkItem.remove(link)
+                            }
+                        }
+                    }.environmentObject(linksViewModel)
                 }
-            }.frame(maxWidth: .infinity, alignment: .leading)
-            
+            }
+            .padding(.horizontal, 15)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            //Кнопка Рlus
             Button(action: {
                 linksViewModel.isShowAddLink.toggle()
             }, label: {
@@ -32,24 +42,32 @@ struct LinksView: View {
                 }
             })
             .offset(x: -20, y: -30)
+            .sheet(isPresented: $linksViewModel.isShowAddLink) {
+                AddLinkView(linksViewModel: linksViewModel)
+            }
         }.frame(maxWidth: .infinity, alignment: .trailing)
     }
 }
 
-struct LinkItem: View {
-    let text: String
+//MARK: - LinkItem
+struct LinkItems: View {
+//    @State var isShowContent = false
+//    @Binding var openUrl: String
+    let linkData: LinkItem
+    @EnvironmentObject var linksViewModel: LinksViewModel
+    var onDelete: ()->()
     
     var body: some View {
         HStack {
             HStack(spacing: 15.0) {
                 Image(systemName: "link")
-                Text(text)
+                Text(linkData.linkTitle)
                     .font(.system(size: 14))
             }
             Spacer()
-            
+            //Кнопка удалить запись
             Button(action: {
-                //
+                onDelete()
             }, label: {
                 Image(systemName: "xmark")
                     .foregroundStyle(.black)
@@ -60,11 +78,16 @@ struct LinkItem: View {
         .background(Color("Gray"))
         .cornerRadius(10)
         .onTapGesture {
-            print(1)
+            linksViewModel.isShowLinkContent.toggle()
+            linksViewModel.url = linkData.linkUrl
         }
+        .fullScreenCover(isPresented: $linksViewModel.isShowLinkContent, content: {
+//            LinkOpenView(url: $openUrl)
+            LinkOpenView(url: linksViewModel.url)
+        })
     }
 }
 
 #Preview {
-    ContentView()
+    LinksView(linksViewModel: LinksViewModel())
 }

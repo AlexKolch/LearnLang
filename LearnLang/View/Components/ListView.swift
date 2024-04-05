@@ -9,9 +9,9 @@ import SwiftUI
 import RealmSwift
 
 struct ListView: View {
-    @State var searchText: String = ""
+    @State private var searchText: String = ""
     @ObservedObject var listViewModel: ListViewModel
-    @ObservedResults(WordItem.self) var wordItems
+    @ObservedResults(WordItem.self) var wordItems //отсюда берутся данные из Realm
     
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
@@ -32,9 +32,9 @@ struct ListView: View {
                     
                     VStack(spacing: 20.0) {
                         //Cards
-                        ForEach(wordItems, id: \.id) { item in
+                        ForEach(wordItems, id: \.id) { item in //Берем карточки из Realm и каждую кладем в вью
                             CardItemsView(cardItems: item) {
-                                $wordItems.remove(item) //Удаление из Realm
+                                $wordItems.remove(item) //кложур onDelete: Удаление из Realm
                             }
                         }
                     }
@@ -59,8 +59,10 @@ struct ListView: View {
     
 }
 
+//MARK: - CardItems
 struct CardItemsView: View {
-    @State var offsetX: CGFloat = 0
+    @State private var offsetX: CGFloat = 0
+    @State private var isShowDescription = true
     var cardItems: WordItem
     let onDelete: () -> ()
     
@@ -68,7 +70,7 @@ struct CardItemsView: View {
         ZStack(alignment: .trailing) {
             createRemoveImage()
             VStack(alignment: .leading, spacing: 10.0) {
-                VStack(alignment: .leading, spacing: 0.0) { //1
+                VStack(alignment: .leading, spacing: 0.0) { //1 блок слово
                     Text("TR").font(.system(size: 12, weight: .black))
                         .padding(.bottom, 5)
                     Text(cardItems.nativWord)
@@ -80,13 +82,28 @@ struct CardItemsView: View {
                         .font(.system(size: 16, weight: .light))
                 }
                 
-                Divider()
-                
-                VStack(alignment: .leading) { //2
-                    Text ("Примечание").font(.system(size: 12, weight: .black))
-                        .foregroundStyle(.secondary)
-                        .padding(.bottom, 2)
-                    Text (cardItems.descriptionWord)
+                if cardItems.descriptionWord.count != 0 {
+                    Divider()
+                    VStack(alignment: .leading) { //2 блок примечание
+                        Text("Примечание").font(.system(size: 12, weight: .black))
+                            .foregroundStyle(.secondary)
+                            .padding(.bottom, 2)
+                        if isShowDescription {
+                            Text(cardItems.descriptionWord)
+                                .onTapGesture {
+                                    withAnimation {
+                                        isShowDescription.toggle()
+                                    }
+                                }
+                        } else {
+                            Rectangle().frame(minWidth: 200, maxHeight: 2).foregroundStyle(Color("Gray"))
+                                .onTapGesture {
+                                    withAnimation {
+                                        isShowDescription.toggle()
+                                    }
+                                }
+                        }
+                    }
                 }
             }.frame(maxWidth: .infinity)
                 .padding(20)
@@ -102,17 +119,19 @@ struct CardItemsView: View {
                     }
                          
                     .onEnded { value in
-                        withAnimation {
-                            if Self.screenSize().width * 0.7 < -value.translation.width {
+                        if Self.screenSize().width * 0.7 < -value.translation.width {
+                            UIImpactFeedbackGenerator(style: .medium).impactOccurred() //Вибрация при удалении
+                            withAnimation {
                                 offsetX = -Self.screenSize().width
                                 onDelete()
                             }
                             offsetX = 0
                         }
                     }
-            )
+                )
         }
     }
+
     @ViewBuilder
     func createRemoveImage() -> some View {
         Image(systemName: "xmark")
@@ -122,6 +141,9 @@ struct CardItemsView: View {
             .offset(x: offsetX * 0.4)
             .scaleEffect(CGSize(width: 0.1 * -offsetX * 0.08,
                                 height: 0.1 * -offsetX * 0.08))
+            .onTapGesture {
+                onDelete()
+            }
     }
 }
 

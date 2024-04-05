@@ -22,6 +22,9 @@
 		FC71EC5D2BBD9EB900C01C0E /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = FC71EC5C2BBD9EB900C01C0E /* Realm */; };
 		FC71EC5F2BBD9EB900C01C0E /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = FC71EC5E2BBD9EB900C01C0E /* RealmSwift */; };
 		FC71EC612BBD9F7600C01C0E /* WordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC71EC602BBD9F7600C01C0E /* WordItem.swift */; };
+		FC71EC632BBE840F00C01C0E /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC71EC622BBE840F00C01C0E /* WebView.swift */; };
+		FC71EC652BBEA72F00C01C0E /* LinkOpenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC71EC642BBEA72F00C01C0E /* LinkOpenView.swift */; };
+		FC71EC672BBFBD6F00C01C0E /* LinkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC71EC662BBFBD6F00C01C0E /* LinkItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +42,9 @@
 		FC71EC512BBC829200C01C0E /* LinksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinksViewModel.swift; sourceTree = "<group>"; };
 		FC71EC592BBD77AB00C01C0E /* View + ext..swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View + ext..swift"; sourceTree = "<group>"; };
 		FC71EC602BBD9F7600C01C0E /* WordItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordItem.swift; sourceTree = "<group>"; };
+		FC71EC622BBE840F00C01C0E /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		FC71EC642BBEA72F00C01C0E /* LinkOpenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkOpenView.swift; sourceTree = "<group>"; };
+		FC71EC662BBFBD6F00C01C0E /* LinkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +103,7 @@
 			children = (
 				FC71EC442BBB387800C01C0E /* Components */,
 				FC71EC352BBB33AC00C01C0E /* ContentView.swift */,
+				FC71EC622BBE840F00C01C0E /* WebView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -114,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				FC71EC602BBD9F7600C01C0E /* WordItem.swift */,
+				FC71EC662BBFBD6F00C01C0E /* LinkItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -124,6 +132,7 @@
 				FC71EC452BBB389100C01C0E /* ListView.swift */,
 				FC71EC472BBBE41F00C01C0E /* RandomWorldView.swift */,
 				FC71EC492BBBFB7600C01C0E /* LinksView.swift */,
+				FC71EC642BBEA72F00C01C0E /* LinkOpenView.swift */,
 				FC71EC4B2BBC087E00C01C0E /* AddNewWordView.swift */,
 				FC71EC4F2BBC813E00C01C0E /* AddLinkView.swift */,
 			);
@@ -224,7 +233,10 @@
 				FC71EC4A2BBBFB7600C01C0E /* LinksView.swift in Sources */,
 				FC71EC342BBB33AC00C01C0E /* LearnLangApp.swift in Sources */,
 				FC71EC502BBC813E00C01C0E /* AddLinkView.swift in Sources */,
+				FC71EC632BBE840F00C01C0E /* WebView.swift in Sources */,
 				FC71EC462BBB389100C01C0E /* ListView.swift in Sources */,
+				FC71EC652BBEA72F00C01C0E /* LinkOpenView.swift in Sources */,
+				FC71EC672BBFBD6F00C01C0E /* LinkItem.swift in Sources */,
 				FC71EC612BBD9F7600C01C0E /* WordItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
