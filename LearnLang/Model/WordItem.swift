@@ -10,7 +10,7 @@ import RealmSwift
 
 final class WordItem: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var id: ObjectId
-    @Persisted var location: String = "TR"
+    @Persisted var location: String = "EN"
     @Persisted var nativWord: String = ""
     @Persisted var translateWord: String = ""
     @Persisted var descriptionWord: String = ""

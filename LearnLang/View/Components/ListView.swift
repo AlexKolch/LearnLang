@@ -36,7 +36,9 @@ struct ListView: View {
                         //Cards
                         ForEach(wordItems, id: \.id) { item in //Берем карточки из Realm и каждую кладем в вью
                             CardItemsView(cardItems: item) {
-                                $wordItems.remove(item) //кложур onDelete: Удаление из Realm
+                                withAnimation {
+                                    $wordItems.remove(item) //кложур onDelete: Удаление из Realm
+                                }
                             }
                         }
                     }
@@ -72,7 +74,7 @@ struct CardItemsView: View {
             createRemoveImage()
             VStack(alignment: .leading, spacing: 10.0) {
                 VStack(alignment: .leading, spacing: 0.0) { //1 блок слово
-                    Text("TR").font(.system(size: 12, weight: .black))
+                    Text("EN").font(.system(size: 12, weight: .black))
                         .padding(.bottom, 5)
                     Text(cardItems.nativWord)
                         .font(.system(size: 18, weight: .black))

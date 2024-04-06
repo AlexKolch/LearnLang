@@ -129,12 +129,10 @@
 		FC71EC442BBB387800C01C0E /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				FC71EC682BC12C2900C01C0E /* DetailViews */,
 				FC71EC452BBB389100C01C0E /* ListView.swift */,
 				FC71EC472BBBE41F00C01C0E /* RandomWorldView.swift */,
 				FC71EC492BBBFB7600C01C0E /* LinksView.swift */,
-				FC71EC642BBEA72F00C01C0E /* LinkOpenView.swift */,
-				FC71EC4B2BBC087E00C01C0E /* AddNewWordView.swift */,
-				FC71EC4F2BBC813E00C01C0E /* AddLinkView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -145,6 +143,16 @@
 				FC71EC592BBD77AB00C01C0E /* View + ext..swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		FC71EC682BC12C2900C01C0E /* DetailViews */ = {
+			isa = PBXGroup;
+			children = (
+				FC71EC642BBEA72F00C01C0E /* LinkOpenView.swift */,
+				FC71EC4B2BBC087E00C01C0E /* AddNewWordView.swift */,
+				FC71EC4F2BBC813E00C01C0E /* AddLinkView.swift */,
+			);
+			path = DetailViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

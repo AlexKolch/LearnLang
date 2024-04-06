@@ -36,7 +36,7 @@ struct AddNewWordView: View {
             }
             
             VStack(alignment: .leading) {
-                Text("TR").font(.system(size: 12, weight: .black))
+                Text("EN").font(.system(size: 12, weight: .black))
                 
                 VStack {
                     TextField("Word", text: $newWord)
@@ -44,7 +44,7 @@ struct AddNewWordView: View {
                         .padding(.horizontal, 23)
                         .background(Color("Gray"))
                         .cornerRadius(10)
-                        .textInputAutocapitalization(.never)
+                        .textInputAutocapitalization(.never) //Регистр с маленькой буквы
                     TextField("Translate", text: $wordTranslate)
                         .padding(.vertical, 13)
                         .padding(.horizontal, 23)
@@ -62,7 +62,7 @@ struct AddNewWordView: View {
                     TextEditor(text: $wordDesription)
                         .frame(height: 90)
                         .colorMultiply(Color("Gray"))
-                        .autocorrectionDisabled()
+                        .autocorrectionDisabled() //Убрать автоисправления
                 }
                 .padding(.vertical, 13)
                 .padding(.horizontal, 23)
@@ -73,7 +73,7 @@ struct AddNewWordView: View {
             Spacer()
             //SAVE Button
             Button(action: {
-                if newWord.count == 0, wordTranslate.count == 0 {
+                if newWord.count == 0 || wordTranslate.count == 0 {
                     showAlert.toggle()
                 } else {
                     let word = WordItem() //создаем объект модели и записываем в него данные
